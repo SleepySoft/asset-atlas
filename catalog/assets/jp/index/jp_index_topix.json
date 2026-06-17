@@ -1,0 +1,28 @@
+{
+  "id": "jp_index_topix",
+  "name": {
+    "zh": "TOPIX",
+    "en": "TOPIX"
+  },
+  "market": "Tokyo Stock Exchange",
+  "currency": "JPY",
+  "symbols": {
+    "tradingview": "TSE:TOPIX",
+    "yahoo": "^TOPX",
+    "google": "TOPIX:INDEXTOPIX"
+  },
+  "tags": [
+    "japan",
+    "index"
+  ],
+  "note": "东京证券交易所大盘指数",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/topix"
+      }
+    ]
+  }
+}

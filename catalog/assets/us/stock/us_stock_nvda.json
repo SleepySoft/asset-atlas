@@ -1,0 +1,30 @@
+{
+  "id": "us_stock_nvda",
+  "name": {
+    "zh": "英伟达",
+    "en": "NVIDIA Corporation"
+  },
+  "market": "NASDAQ",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "NASDAQ:NVDA",
+    "yahoo": "NVDA",
+    "google": "NVDA:NASDAQ",
+    "stooq": "nvda.us"
+  },
+  "tags": [
+    "us",
+    "semiconductor",
+    "ai"
+  ],
+  "note": "AI/半导体代表",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/nvidia-corp"
+      }
+    ]
+  }
+}

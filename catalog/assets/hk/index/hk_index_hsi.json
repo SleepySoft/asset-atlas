@@ -1,0 +1,28 @@
+{
+  "id": "hk_index_hsi",
+  "name": {
+    "zh": "恒生指数",
+    "en": "Hang Seng Index"
+  },
+  "market": "Hong Kong Stock Exchange",
+  "currency": "HKD",
+  "symbols": {
+    "tradingview": "HSI:HSI",
+    "yahoo": "^HSI",
+    "google": "HSI:INDEXHANGSENG"
+  },
+  "tags": [
+    "hong-kong",
+    "index"
+  ],
+  "note": "香港大盘指数",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/hang-sen-40"
+      }
+    ]
+  }
+}

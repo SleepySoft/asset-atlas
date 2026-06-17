@@ -1,0 +1,27 @@
+{
+  "index": {
+    "asset_class": "index",
+    "label": "Index",
+    "label_zh": "指数"
+  },
+  "stock": {
+    "asset_class": "stock",
+    "label": "Stock",
+    "label_zh": "个股"
+  },
+  "commodity": {
+    "asset_class": "commodity",
+    "label": "Commodity",
+    "label_zh": "大宗商品"
+  },
+  "fx": {
+    "asset_class": "fx",
+    "label": "FX",
+    "label_zh": "外汇"
+  },
+  "crypto": {
+    "asset_class": "crypto",
+    "label": "Crypto",
+    "label_zh": "加密货币"
+  }
+}

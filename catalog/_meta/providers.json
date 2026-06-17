@@ -1,0 +1,234 @@
+{
+  "schema_version": "0.3.0",
+  "notes": "providers 只定义模板和角色。asset 文件里只放 symbols，构建时由 build.py 把模板和 symbol 组合成 links/embed。",
+  "link_semantics": {
+    "jump": "浏览器跳转入口，通常用于打开数据页、详情页、日线/图表页。",
+    "embed": "可嵌入页面的 widget 配置，主要使用 TradingView 官方外部嵌入脚本。",
+    "crawl": "可程序化抓取或 API 访问的入口；应做缓存、限速、错误处理和条款检查。"
+  },
+  "providers": {
+    "tradingview": {
+      "role": ["jump", "embed"],
+      "docs": "https://www.tradingview.com/widget-docs/",
+      "widgets_page": "https://www.tradingview.com/widget/",
+      "notes": "免费 widgets 适合嵌入 ticker、market overview、symbol overview、mini chart、advanced chart 等；不是完整 Charting Library 授权。",
+      "symbol_key": "tradingview",
+      "links": {
+        "symbol_page": {
+          "kind": "symbol_page",
+          "url": "https://www.tradingview.com/symbols/{symbol_dash}/"
+        },
+        "daily_chart": {
+          "kind": "daily_chart",
+          "url": "https://www.tradingview.com/chart/?symbol={symbol_escaped}"
+        }
+      },
+      "widgets": {
+        "symbol_overview": {
+          "script": "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js",
+          "config": {
+            "symbols": [["{symbol}"]],
+            "chartOnly": false,
+            "width": "100%",
+            "height": "100%",
+            "locale": "zh_CN",
+            "colorTheme": "dark",
+            "autosize": true,
+            "showVolume": false,
+            "showMA": false
+          }
+        },
+        "mini_symbol_overview": {
+          "script": "https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js",
+          "config": {
+            "symbol": "{symbol}",
+            "width": "100%",
+            "height": "100%",
+            "locale": "zh_CN",
+            "dateRange": "12M",
+            "colorTheme": "dark",
+            "trendLineColor": "rgba(41, 98, 255, 1)",
+            "underLineColor": "rgba(41, 98, 255, 0.3)",
+            "isTransparent": true,
+            "autosize": true
+          }
+        },
+        "advanced_chart": {
+          "script": "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js",
+          "config": {
+            "autosize": true,
+            "symbol": "{symbol}",
+            "interval": "D",
+            "range": "12M",
+            "timezone": "Asia/Shanghai",
+            "theme": "dark",
+            "style": "1",
+            "locale": "zh_CN",
+            "allow_symbol_change": true,
+            "calendar": false,
+            "support_host": "https://www.tradingview.com"
+          }
+        }
+      },
+      "recommended_widget": "symbol_overview"
+    },
+    "yahoo_finance": {
+      "role": ["jump"],
+      "notes": "此处仅作为用户点击跳转入口，不把 Yahoo 未公开接口列为抓取源。",
+      "symbol_key": "yahoo",
+      "links": {
+        "quote": {
+          "kind": "quote",
+          "url": "https://finance.yahoo.com/quote/{symbol_escaped}"
+        },
+        "chart": {
+          "kind": "chart",
+          "url": "https://finance.yahoo.com/chart/{symbol_escaped}"
+        }
+      }
+    },
+    "google_finance": {
+      "role": ["jump"],
+      "notes": "此处仅作为用户点击跳转入口。",
+      "symbol_key": "google",
+      "links": {
+        "quote": {
+          "kind": "quote",
+          "url": "https://www.google.com/finance/quote/{symbol_escaped}"
+        }
+      }
+    },
+    "sina_finance": {
+      "role": ["jump"],
+      "notes": "新浪财经 A股/指数行情页。通过 tradingview symbol 自动推导 sh/sz 前缀。",
+      "symbol_key": "tradingview",
+      "links": {
+        "quote": {
+          "kind": "quote",
+          "url": "https://finance.sina.com.cn/realstock/company/{symbol_sina}/nc.shtml"
+        }
+      }
+    },
+    "eastmoney": {
+      "role": ["jump"],
+      "notes": "东方财富行情页。A股/指数自动推导 zs/sh/sz 前缀，港股自动补零。",
+      "symbol_key": "tradingview",
+      "links": {
+        "quote": {
+          "kind": "quote",
+          "url": "https://quote.eastmoney.com/{symbol_eastmoney}.html"
+        }
+      }
+    },
+    "xueqiu": {
+      "role": ["jump"],
+      "notes": "雪球个股/指数页。A股自动推导 SH/SZ 前缀，港股自动补零。",
+      "symbol_key": "tradingview",
+      "links": {
+        "quote": {
+          "kind": "quote",
+          "url": "https://xueqiu.com/S/{symbol_xueqiu}"
+        }
+      }
+    },
+    "10jqka": {
+      "role": ["jump"],
+      "notes": "同花顺 A股个股页面。通过 tradingview symbol 自动提取数字代码。",
+      "symbol_key": "tradingview",
+      "links": {
+        "quote": {
+          "kind": "quote",
+          "url": "https://stockpage.10jqka.com.cn/{symbol_10jqka}/"
+        }
+      }
+    },
+    "futu": {
+      "role": ["jump"],
+      "notes": "富途牛牛港股/美股页面。港股自动补零加 -HK，美股加 -US。",
+      "symbol_key": "tradingview",
+      "links": {
+        "quote": {
+          "kind": "quote",
+          "url": "https://www.futunn.com/stock/{symbol_futu}"
+        }
+      }
+    },
+    "marketwatch": {
+      "role": ["jump"],
+      "notes": "MarketWatch 美股/指数页面。",
+      "symbol_key": "tradingview",
+      "links": {
+        "quote": {
+          "kind": "quote",
+          "url": "https://www.marketwatch.com/investing/{symbol_marketwatch_path}/{symbol_marketwatch}"
+        }
+      }
+    },
+    "stocktwits": {
+      "role": ["jump"],
+      "notes": "StockTwits 美股社交情绪页面。",
+      "symbol_key": "tradingview",
+      "links": {
+        "quote": {
+          "kind": "quote",
+          "url": "https://stocktwits.com/symbol/{symbol_upper}"
+        }
+      }
+    },
+    "coinmarketcap": {
+      "role": ["jump"],
+      "notes": "CoinMarketCap 加密货币页面。需要在资产文件里显式写 coinmarketcap symbol（如 bitcoin）。",
+      "symbol_key": "coinmarketcap",
+      "links": {
+        "quote": {
+          "kind": "quote",
+          "url": "https://coinmarketcap.com/currencies/{symbol}/"
+        }
+      }
+    },
+    "binance": {
+      "role": ["jump"],
+      "notes": "Binance 现货交易页面。需要在资产文件里显式写 binance symbol（如 BTCUSDT）。",
+      "symbol_key": "binance",
+      "links": {
+        "quote": {
+          "kind": "quote",
+          "url": "https://www.binance.com/en/trade/{symbol}"
+        }
+      }
+    },
+    "investing": {
+      "role": ["jump"],
+      "notes": "此处仅作为用户点击跳转入口。 Investing.com 的 URL 没有统一通配规则，因此默认不生成；需要在 asset 文件里显式写 links.jump。",
+      "symbol_key": null,
+      "links": {}
+    },
+    "stooq": {
+      "role": ["jump", "crawl"],
+      "daily_csv_template": "https://stooq.com/q/d/l/?s={symbol_escaped}&i=d",
+      "notes": "PUBLIC CSV/历史数据入口，适合个人研究和内部缓存；商业或高频使用前检查条款。",
+      "symbol_key": "stooq",
+      "links": {
+        "daily_ohlcv_csv": {
+          "kind": "daily_ohlcv_csv",
+          "url": "https://stooq.com/q/d/l/?s={symbol_escaped}&i=d",
+          "type": "daily_ohlcv_csv",
+          "format": "csv",
+          "interval": "1d"
+        }
+      }
+    },
+    "coingecko": {
+      "role": ["crawl"],
+      "base_url": "https://api.coingecko.com/api/v3",
+      "notes": "Keyless public API 适合轻量原型和低频测试，可能按 IP 限流。",
+      "symbol_key": "coingecko"
+    },
+    "frankfurter": {
+      "role": ["crawl"],
+      "base_url": "https://api.frankfurter.dev/v2",
+      "notes": "免费汇率 API，无需 API key；央行/参考汇率口径，不等同于实时交易报价。",
+      "symbol_key": null
+    }
+  }
+}

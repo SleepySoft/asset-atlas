@@ -1,0 +1,30 @@
+{
+  "id": "jp_stock_sony",
+  "name": {
+    "zh": "索尼集团",
+    "en": "Sony Group"
+  },
+  "market": "Tokyo Stock Exchange",
+  "currency": "JPY",
+  "symbols": {
+    "tradingview": "TSE:6758",
+    "yahoo": "6758.T",
+    "google": "6758:TYO",
+    "stooq": "6758.jp"
+  },
+  "tags": [
+    "japan",
+    "electronics",
+    "media"
+  ],
+  "note": "日本消费电子/娱乐代表",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/sony-corp"
+      }
+    ]
+  }
+}

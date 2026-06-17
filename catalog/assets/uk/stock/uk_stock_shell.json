@@ -1,0 +1,29 @@
+{
+  "id": "uk_stock_shell",
+  "name": {
+    "zh": "壳牌",
+    "en": "Shell plc"
+  },
+  "market": "London Stock Exchange",
+  "currency": "GBP",
+  "symbols": {
+    "tradingview": "LSE:SHEL",
+    "yahoo": "SHEL.L",
+    "google": "SHEL:LON",
+    "stooq": "shel.uk"
+  },
+  "tags": [
+    "uk",
+    "energy"
+  ],
+  "note": "能源巨头",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/royal-dutch-shell-a-shr"
+      }
+    ]
+  }
+}

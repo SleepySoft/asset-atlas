@@ -1,0 +1,48 @@
+{
+  "id": "fx_usdjpy",
+  "name": {
+    "zh": "美元/日元",
+    "en": "USD/JPY"
+  },
+  "market": "Foreign Exchange",
+  "currency": "JPY",
+  "symbols": {
+    "tradingview": "FX:USDJPY",
+    "yahoo": "JPY=X",
+    "google": "USDJPY:CURRENCY",
+    "frankfurter": "USD/JPY",
+    "stooq": "usdjpy"
+  },
+  "tags": [
+    "fx",
+    "jpy"
+  ],
+  "note": "美元兑日元",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/currencies/usd-jpy"
+      }
+    ],
+    "crawl": [
+      {
+        "provider": "frankfurter",
+        "type": "latest_fx_json",
+        "url": "https://api.frankfurter.dev/v2/rates?base=USD&quotes=JPY",
+        "format": "json",
+        "base": "USD",
+        "quote": "JPY"
+      },
+      {
+        "provider": "frankfurter",
+        "type": "fx_timeseries_json",
+        "url": "https://api.frankfurter.dev/v2/rates?from=2025-01-01&base=USD&quotes=JPY",
+        "format": "json",
+        "base": "USD",
+        "quote": "JPY"
+      }
+    ]
+  }
+}

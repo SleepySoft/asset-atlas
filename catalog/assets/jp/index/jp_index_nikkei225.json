@@ -1,0 +1,29 @@
+{
+  "id": "jp_index_nikkei225",
+  "name": {
+    "zh": "日经225",
+    "en": "Nikkei 225"
+  },
+  "market": "Tokyo Stock Exchange",
+  "currency": "JPY",
+  "symbols": {
+    "tradingview": "TVC:NI225",
+    "yahoo": "^N225",
+    "google": "NI225:INDEXNIKKEI",
+    "stooq": "^nkx"
+  },
+  "tags": [
+    "japan",
+    "index"
+  ],
+  "note": "日本大型股代表",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/japan-ni225"
+      }
+    ]
+  }
+}

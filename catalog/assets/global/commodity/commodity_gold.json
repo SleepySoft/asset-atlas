@@ -1,0 +1,30 @@
+{
+  "id": "commodity_gold",
+  "name": {
+    "zh": "黄金",
+    "en": "Gold"
+  },
+  "market": "Commodities",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "TVC:GOLD",
+    "yahoo": "GC=F",
+    "google": "",
+    "stooq": "gc.f"
+  },
+  "tags": [
+    "commodity",
+    "precious-metal",
+    "safe-haven"
+  ],
+  "note": "黄金现货/期货参考",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/commodities/gold"
+      }
+    ]
+  }
+}

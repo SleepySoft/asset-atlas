@@ -1,0 +1,29 @@
+{
+  "id": "kr_stock_samsung",
+  "name": {
+    "zh": "三星电子",
+    "en": "Samsung Electronics"
+  },
+  "market": "Korea Exchange",
+  "currency": "KRW",
+  "symbols": {
+    "tradingview": "KRX:005930",
+    "yahoo": "005930.KS",
+    "google": "005930:KRX"
+  },
+  "tags": [
+    "korea",
+    "semiconductor",
+    "electronics"
+  ],
+  "note": "韩国半导体/电子龙头",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/samsung-electronics-co-ltd"
+      }
+    ]
+  }
+}

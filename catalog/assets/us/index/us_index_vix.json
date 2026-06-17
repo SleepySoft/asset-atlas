@@ -1,0 +1,30 @@
+{
+  "id": "us_index_vix",
+  "name": {
+    "zh": "VIX波动率指数",
+    "en": "CBOE Volatility Index"
+  },
+  "market": "CBOE",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "TVC:VIX",
+    "yahoo": "^VIX",
+    "google": "VIX:INDEXCBOE",
+    "stooq": "^vix"
+  },
+  "tags": [
+    "us",
+    "volatility",
+    "risk"
+  ],
+  "note": "风险情绪/隐含波动率指标",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/volatility-s-p-500"
+      }
+    ]
+  }
+}

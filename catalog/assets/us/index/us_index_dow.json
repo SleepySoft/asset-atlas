@@ -1,0 +1,30 @@
+{
+  "id": "us_index_dow",
+  "name": {
+    "zh": "道琼斯工业平均",
+    "en": "Dow Jones Industrial Average"
+  },
+  "market": "Dow Jones",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "DJ:DJI",
+    "yahoo": "^DJI",
+    "google": ".DJI:INDEXDJX",
+    "stooq": "^dji"
+  },
+  "tags": [
+    "us",
+    "blue-chip",
+    "index"
+  ],
+  "note": "道琼斯30只代表性成分股",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/us-30"
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "jp_stock_toyota",
+  "name": {
+    "zh": "丰田汽车",
+    "en": "Toyota Motor"
+  },
+  "market": "Tokyo Stock Exchange",
+  "currency": "JPY",
+  "symbols": {
+    "tradingview": "TSE:7203",
+    "yahoo": "7203.T",
+    "google": "7203:TYO",
+    "stooq": "7203.jp"
+  },
+  "tags": [
+    "japan",
+    "auto"
+  ],
+  "note": "日本汽车龙头",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/toyota-motor-corp"
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "cn_stock_kweichow_moutai",
+  "name": {
+    "zh": "贵州茅台",
+    "en": "Kweichow Moutai"
+  },
+  "market": "Shanghai Stock Exchange",
+  "currency": "CNY",
+  "symbols": {
+    "tradingview": "SSE:600519",
+    "yahoo": "600519.SS",
+    "google": "600519:SHA"
+  },
+  "tags": [
+    "china",
+    "consumer",
+    "a-share"
+  ],
+  "note": "A股消费龙头",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/kweichow-moutai"
+      }
+    ]
+  }
+}

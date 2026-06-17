@@ -1,0 +1,30 @@
+{
+  "id": "us_stock_tsla",
+  "name": {
+    "zh": "特斯拉",
+    "en": "Tesla Inc."
+  },
+  "market": "NASDAQ",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "NASDAQ:TSLA",
+    "yahoo": "TSLA",
+    "google": "TSLA:NASDAQ",
+    "stooq": "tsla.us"
+  },
+  "tags": [
+    "us",
+    "ev",
+    "growth"
+  ],
+  "note": "电动车/成长股代表",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/tesla-motors"
+      }
+    ]
+  }
+}

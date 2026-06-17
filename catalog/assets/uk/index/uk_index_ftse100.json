@@ -1,0 +1,30 @@
+{
+  "id": "uk_index_ftse100",
+  "name": {
+    "zh": "富时100",
+    "en": "FTSE 100"
+  },
+  "market": "London Stock Exchange",
+  "currency": "GBP",
+  "symbols": {
+    "tradingview": "TVC:UKX",
+    "yahoo": "^FTSE",
+    "google": "UKX:INDEXFTSE",
+    "stooq": "^ukx"
+  },
+  "tags": [
+    "uk",
+    "large-cap",
+    "index"
+  ],
+  "note": "英国大型股指数",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/uk-100"
+      }
+    ]
+  }
+}

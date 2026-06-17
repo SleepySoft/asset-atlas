@@ -1,0 +1,30 @@
+{
+  "id": "commodity_brent",
+  "name": {
+    "zh": "布伦特原油",
+    "en": "Brent Crude Oil"
+  },
+  "market": "Commodities",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "TVC:UKOIL",
+    "yahoo": "BZ=F",
+    "google": "",
+    "stooq": "brn.f"
+  },
+  "tags": [
+    "commodity",
+    "energy",
+    "oil"
+  ],
+  "note": "国际原油基准",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/commodities/brent-oil"
+      }
+    ]
+  }
+}

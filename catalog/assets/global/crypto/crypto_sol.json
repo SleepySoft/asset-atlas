@@ -1,0 +1,31 @@
+{
+  "id": "crypto_sol",
+  "name": {
+    "zh": "Solana",
+    "en": "Solana"
+  },
+  "market": "Crypto",
+  "currency": "USD",
+  "symbols": {
+    "coinmarketcap": "solana",
+    "binance": "SOLUSDT",
+    "tradingview": "COINBASE:SOLUSD",
+    "yahoo": "SOL-USD",
+    "google": "SOL-USD",
+    "coingecko": "solana"
+  },
+  "tags": [
+    "crypto",
+    "layer1"
+  ],
+  "note": "高性能公链代表",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/crypto/solana"
+      }
+    ]
+  }
+}

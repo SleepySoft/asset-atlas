@@ -1,0 +1,29 @@
+{
+  "id": "hk_index_hstech",
+  "name": {
+    "zh": "恒生科技",
+    "en": "Hang Seng TECH Index"
+  },
+  "market": "Hong Kong Stock Exchange",
+  "currency": "HKD",
+  "symbols": {
+    "tradingview": "HSI:HSTECH",
+    "yahoo": "^HSTECH",
+    "google": "HSTECH:INDEXHANGSENG"
+  },
+  "tags": [
+    "hong-kong",
+    "tech",
+    "index"
+  ],
+  "note": "香港科技股代表",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/hang-seng-tech"
+      }
+    ]
+  }
+}

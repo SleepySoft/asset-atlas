@@ -1,0 +1,29 @@
+{
+  "id": "us_index_ixic",
+  "name": {
+    "zh": "纳斯达克综合",
+    "en": "Nasdaq Composite"
+  },
+  "market": "NASDAQ",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "NASDAQ:IXIC",
+    "yahoo": "^IXIC",
+    "google": ".IXIC:INDEXNASDAQ",
+    "stooq": "^ixic"
+  },
+  "tags": [
+    "us",
+    "index"
+  ],
+  "note": "纳斯达克综合指数",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/nasdaq-composite"
+      }
+    ]
+  }
+}

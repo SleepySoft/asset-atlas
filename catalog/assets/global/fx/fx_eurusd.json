@@ -1,0 +1,49 @@
+{
+  "id": "fx_eurusd",
+  "name": {
+    "zh": "欧元/美元",
+    "en": "EUR/USD"
+  },
+  "market": "Foreign Exchange",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "FX:EURUSD",
+    "yahoo": "EURUSD=X",
+    "google": "EURUSD:CURRENCY",
+    "frankfurter": "EUR/USD",
+    "stooq": "eurusd"
+  },
+  "tags": [
+    "fx",
+    "eur",
+    "usd"
+  ],
+  "note": "全球核心外汇对",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/currencies/eur-usd"
+      }
+    ],
+    "crawl": [
+      {
+        "provider": "frankfurter",
+        "type": "latest_fx_json",
+        "url": "https://api.frankfurter.dev/v2/rates?base=EUR&quotes=USD",
+        "format": "json",
+        "base": "EUR",
+        "quote": "USD"
+      },
+      {
+        "provider": "frankfurter",
+        "type": "fx_timeseries_json",
+        "url": "https://api.frankfurter.dev/v2/rates?from=2025-01-01&base=EUR&quotes=USD",
+        "format": "json",
+        "base": "EUR",
+        "quote": "USD"
+      }
+    ]
+  }
+}

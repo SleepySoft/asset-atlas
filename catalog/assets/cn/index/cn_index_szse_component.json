@@ -1,0 +1,29 @@
+{
+  "id": "cn_index_szse_component",
+  "name": {
+    "zh": "深证成指",
+    "en": "SZSE Component Index"
+  },
+  "market": "Shenzhen Stock Exchange",
+  "currency": "CNY",
+  "symbols": {
+    "tradingview": "SZSE:399001",
+    "yahoo": "399001.SZ",
+    "google": "399001:SHE"
+  },
+  "tags": [
+    "china",
+    "a-share",
+    "index"
+  ],
+  "note": "深圳市场主要指数",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/szse-component"
+      }
+    ]
+  }
+}

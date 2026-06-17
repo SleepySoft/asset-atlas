@@ -1,0 +1,31 @@
+{
+  "id": "us_index_ndx",
+  "name": {
+    "zh": "纳斯达克100",
+    "en": "Nasdaq 100"
+  },
+  "market": "NASDAQ",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "NASDAQ:NDX",
+    "yahoo": "^NDX",
+    "google": "NDX:INDEXNASDAQ",
+    "stooq": "^ndx"
+  },
+  "tags": [
+    "us",
+    "tech",
+    "growth",
+    "index"
+  ],
+  "note": "美国大型科技与成长股",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/nq-100"
+      }
+    ]
+  }
+}

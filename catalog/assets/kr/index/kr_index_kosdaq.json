@@ -1,0 +1,29 @@
+{
+  "id": "kr_index_kosdaq",
+  "name": {
+    "zh": "KOSDAQ",
+    "en": "KOSDAQ Composite"
+  },
+  "market": "KOSDAQ",
+  "currency": "KRW",
+  "symbols": {
+    "tradingview": "KRX:KOSDAQ",
+    "yahoo": "^KQ11",
+    "google": "KOSDAQ:KOSDAQ"
+  },
+  "tags": [
+    "korea",
+    "growth",
+    "index"
+  ],
+  "note": "韩国成长/中小盘市场",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/kosdaq"
+      }
+    ]
+  }
+}

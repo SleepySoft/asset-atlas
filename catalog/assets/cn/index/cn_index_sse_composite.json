@@ -1,0 +1,29 @@
+{
+  "id": "cn_index_sse_composite",
+  "name": {
+    "zh": "上证综指",
+    "en": "SSE Composite Index"
+  },
+  "market": "Shanghai Stock Exchange",
+  "currency": "CNY",
+  "symbols": {
+    "tradingview": "SSE:000001",
+    "yahoo": "000001.SS",
+    "google": "000001:SHA"
+  },
+  "tags": [
+    "china",
+    "a-share",
+    "index"
+  ],
+  "note": "中国大陆股票市场综合指数",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/shanghai-composite"
+      }
+    ]
+  }
+}

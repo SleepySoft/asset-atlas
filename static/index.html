@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Market Catalog Engine</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <button class="menu-toggle" id="menuToggle" aria-label="切换侧边栏">☰</button>
+      <h1>Market Catalog Engine</h1>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="搜索名称、代码、标签、provider...">
+      </div>
+      <div class="stats" id="stats"></div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="filter-section">
+          <h3>地区</h3>
+          <div class="filter-list" id="regionFilters"></div>
+        </div>
+        <div class="filter-section">
+          <h3>分类</h3>
+          <div class="filter-list" id="groupFilters"></div>
+        </div>
+        <div class="filter-section">
+          <h3>数据源</h3>
+          <div class="filter-list" id="providerFilters"></div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <div class="toolbar">
+          <span id="resultCount">加载中...</span>
+          <div class="toolbar-actions">
+            <button class="btn btn-small" id="exportBtn">导出 JSON</button>
+            <button class="btn btn-small" id="reloadBtn">刷新</button>
+          </div>
+        </div>
+        <div class="asset-grid" id="assetGrid"></div>
+      </main>
+
+      <aside class="detail-panel" id="detailPanel">
+        <button class="close-detail" id="closeDetail" aria-label="关闭详情">×</button>
+        <div id="detailContent">
+          <p class="empty-tip">点击左侧资产查看详情与预览</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

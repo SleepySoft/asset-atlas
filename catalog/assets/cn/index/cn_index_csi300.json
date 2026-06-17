@@ -1,0 +1,30 @@
+{
+  "id": "cn_index_csi300",
+  "name": {
+    "zh": "沪深300",
+    "en": "CSI 300"
+  },
+  "market": "China A-share",
+  "currency": "CNY",
+  "symbols": {
+    "tradingview": "SSE:000300",
+    "yahoo": "000300.SS",
+    "google": "000300:SHA"
+  },
+  "tags": [
+    "china",
+    "a-share",
+    "blue-chip",
+    "index"
+  ],
+  "note": "A股大盘蓝筹代表",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/csi300"
+      }
+    ]
+  }
+}

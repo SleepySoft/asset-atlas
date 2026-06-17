@@ -1,0 +1,31 @@
+{
+  "id": "crypto_bnb",
+  "name": {
+    "zh": "BNB",
+    "en": "BNB"
+  },
+  "market": "Crypto",
+  "currency": "USD",
+  "symbols": {
+    "coinmarketcap": "bnb",
+    "binance": "BNBUSDT",
+    "tradingview": "BINANCE:BNBUSDT",
+    "yahoo": "BNB-USD",
+    "google": "BNB-USD",
+    "coingecko": "binancecoin"
+  },
+  "tags": [
+    "crypto",
+    "exchange-token"
+  ],
+  "note": "交易所生态代币代表",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/crypto/bnb"
+      }
+    ]
+  }
+}

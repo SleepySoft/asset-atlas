@@ -1,0 +1,29 @@
+{
+  "id": "hk_stock_alibaba",
+  "name": {
+    "zh": "阿里巴巴-SW",
+    "en": "Alibaba Group Holding HK"
+  },
+  "market": "Hong Kong Stock Exchange",
+  "currency": "HKD",
+  "symbols": {
+    "tradingview": "HKEX:9988",
+    "yahoo": "9988.HK",
+    "google": "9988:HKG"
+  },
+  "tags": [
+    "hong-kong",
+    "internet",
+    "ecommerce"
+  ],
+  "note": "港股互联网/电商代表",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/alibaba"
+      }
+    ]
+  }
+}

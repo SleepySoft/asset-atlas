@@ -1,0 +1,28 @@
+{
+  "id": "tw_index_taiex",
+  "name": {
+    "zh": "台湾加权指数",
+    "en": "TAIEX"
+  },
+  "market": "Taiwan Stock Exchange",
+  "currency": "TWD",
+  "symbols": {
+    "tradingview": "TWSE:TAIEX",
+    "yahoo": "^TWII",
+    "google": "TAIEX:TAI"
+  },
+  "tags": [
+    "taiwan",
+    "index"
+  ],
+  "note": "台湾大盘指数",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/taiwan-weighted"
+      }
+    ]
+  }
+}

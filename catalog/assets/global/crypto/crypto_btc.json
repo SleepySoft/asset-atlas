@@ -1,0 +1,32 @@
+{
+  "id": "crypto_btc",
+  "name": {
+    "zh": "比特币",
+    "en": "Bitcoin"
+  },
+  "market": "Crypto",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "COINBASE:BTCUSD",
+    "yahoo": "BTC-USD",
+    "google": "BTC-USD",
+    "coingecko": "bitcoin",
+    "coinmarketcap": "bitcoin",
+    "binance": "BTCUSDT",
+    "stooq": "btcusd"
+  },
+  "tags": [
+    "crypto",
+    "bitcoin"
+  ],
+  "note": "数字资产市值龙头",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/crypto/bitcoin"
+      }
+    ]
+  }
+}

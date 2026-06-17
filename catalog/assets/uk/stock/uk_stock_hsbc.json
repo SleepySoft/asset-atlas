@@ -1,0 +1,29 @@
+{
+  "id": "uk_stock_hsbc",
+  "name": {
+    "zh": "汇丰控股",
+    "en": "HSBC Holdings"
+  },
+  "market": "London Stock Exchange",
+  "currency": "GBP",
+  "symbols": {
+    "tradingview": "LSE:HSBA",
+    "yahoo": "HSBA.L",
+    "google": "HSBA:LON",
+    "stooq": "hsba.uk"
+  },
+  "tags": [
+    "uk",
+    "banking"
+  ],
+  "note": "英国/香港大型银行",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/hsbc-holdings"
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "hk_stock_tencent",
+  "name": {
+    "zh": "腾讯控股",
+    "en": "Tencent Holdings"
+  },
+  "market": "Hong Kong Stock Exchange",
+  "currency": "HKD",
+  "symbols": {
+    "tradingview": "HKEX:700",
+    "yahoo": "0700.HK",
+    "google": "700:HKG"
+  },
+  "tags": [
+    "hong-kong",
+    "internet",
+    "mega-cap"
+  ],
+  "note": "港股互联网龙头",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/tencent-holdings"
+      }
+    ]
+  }
+}

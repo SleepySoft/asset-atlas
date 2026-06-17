@@ -1,0 +1,30 @@
+{
+  "id": "us_index_russell2000",
+  "name": {
+    "zh": "罗素2000",
+    "en": "Russell 2000"
+  },
+  "market": "Russell",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "TVC:RUT",
+    "yahoo": "^RUT",
+    "google": "RUT:INDEXRUSSELL",
+    "stooq": "^rut"
+  },
+  "tags": [
+    "us",
+    "small-cap",
+    "index"
+  ],
+  "note": "美国小盘股代表",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/smallcap-2000"
+      }
+    ]
+  }
+}

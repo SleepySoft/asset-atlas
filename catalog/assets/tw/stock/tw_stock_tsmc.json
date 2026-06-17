@@ -1,0 +1,28 @@
+{
+  "id": "tw_stock_tsmc",
+  "name": {
+    "zh": "台积电",
+    "en": "Taiwan Semiconductor Manufacturing"
+  },
+  "market": "Taiwan Stock Exchange",
+  "currency": "TWD",
+  "symbols": {
+    "tradingview": "TWSE:2330",
+    "yahoo": "2330.TW",
+    "google": "2330:TPE"
+  },
+  "tags": [
+    "taiwan",
+    "semiconductor"
+  ],
+  "note": "全球晶圆代工龙头",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/taiwan-semiconductor-manufacturing"
+      }
+    ]
+  }
+}

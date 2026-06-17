@@ -1,0 +1,30 @@
+{
+  "id": "us_stock_msft",
+  "name": {
+    "zh": "微软",
+    "en": "Microsoft Corporation"
+  },
+  "market": "NASDAQ",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "NASDAQ:MSFT",
+    "yahoo": "MSFT",
+    "google": "MSFT:NASDAQ",
+    "stooq": "msft.us"
+  },
+  "tags": [
+    "us",
+    "mega-cap",
+    "software"
+  ],
+  "note": "美股大型科技股",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/microsoft-corp"
+      }
+    ]
+  }
+}

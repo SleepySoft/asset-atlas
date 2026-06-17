@@ -1,0 +1,28 @@
+{
+  "id": "kr_index_kospi",
+  "name": {
+    "zh": "KOSPI",
+    "en": "KOSPI Composite"
+  },
+  "market": "Korea Exchange",
+  "currency": "KRW",
+  "symbols": {
+    "tradingview": "KRX:KOSPI",
+    "yahoo": "^KS11",
+    "google": "KOSPI:KRX"
+  },
+  "tags": [
+    "korea",
+    "index"
+  ],
+  "note": "韩国综合股价指数",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/kospi"
+      }
+    ]
+  }
+}

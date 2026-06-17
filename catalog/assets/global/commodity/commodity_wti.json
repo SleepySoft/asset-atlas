@@ -1,0 +1,30 @@
+{
+  "id": "commodity_wti",
+  "name": {
+    "zh": "WTI原油",
+    "en": "WTI Crude Oil"
+  },
+  "market": "Commodities",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "TVC:USOIL",
+    "yahoo": "CL=F",
+    "google": "",
+    "stooq": "cl.f"
+  },
+  "tags": [
+    "commodity",
+    "energy",
+    "oil"
+  ],
+  "note": "美国西德州中质原油",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/commodities/crude-oil"
+      }
+    ]
+  }
+}

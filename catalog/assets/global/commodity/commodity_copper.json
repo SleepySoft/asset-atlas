@@ -1,0 +1,29 @@
+{
+  "id": "commodity_copper",
+  "name": {
+    "zh": "铜",
+    "en": "Copper"
+  },
+  "market": "Commodities",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "COMEX:HG1!",
+    "yahoo": "HG=F",
+    "google": "",
+    "stooq": "hg.f"
+  },
+  "tags": [
+    "commodity",
+    "industrial-metal"
+  ],
+  "note": "工业金属/经济周期参考",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/commodities/copper"
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "fx_usdcnh",
+  "name": {
+    "zh": "美元/离岸人民币",
+    "en": "USD/CNH"
+  },
+  "market": "Foreign Exchange",
+  "currency": "CNH",
+  "symbols": {
+    "tradingview": "FX_IDC:USDCNH",
+    "yahoo": "CNH=X",
+    "google": ""
+  },
+  "tags": [
+    "fx",
+    "cnh",
+    "china"
+  ],
+  "note": "离岸人民币汇率",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/currencies/usd-cnh"
+      }
+    ]
+  }
+}

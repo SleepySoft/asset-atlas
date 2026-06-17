@@ -1,0 +1,29 @@
+{
+  "id": "uk_index_ftse250",
+  "name": {
+    "zh": "富时250",
+    "en": "FTSE 250"
+  },
+  "market": "London Stock Exchange",
+  "currency": "GBP",
+  "symbols": {
+    "tradingview": "FTSE:MCX",
+    "yahoo": "^FTMC",
+    "google": "MCX:INDEXFTSE"
+  },
+  "tags": [
+    "uk",
+    "mid-cap",
+    "index"
+  ],
+  "note": "英国中盘股指数",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/ftse-250"
+      }
+    ]
+  }
+}

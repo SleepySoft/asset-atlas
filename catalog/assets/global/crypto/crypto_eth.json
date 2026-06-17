@@ -1,0 +1,32 @@
+{
+  "id": "crypto_eth",
+  "name": {
+    "zh": "以太坊",
+    "en": "Ethereum"
+  },
+  "market": "Crypto",
+  "currency": "USD",
+  "symbols": {
+    "coinmarketcap": "ethereum",
+    "binance": "ETHUSDT",
+    "tradingview": "COINBASE:ETHUSD",
+    "yahoo": "ETH-USD",
+    "google": "ETH-USD",
+    "coingecko": "ethereum",
+    "stooq": "ethusd"
+  },
+  "tags": [
+    "crypto",
+    "ethereum"
+  ],
+  "note": "智能合约平台代表",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/crypto/ethereum"
+      }
+    ]
+  }
+}

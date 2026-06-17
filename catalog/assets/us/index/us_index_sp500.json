@@ -1,0 +1,30 @@
+{
+  "id": "us_index_sp500",
+  "name": {
+    "zh": "S&P 500",
+    "en": "S&P 500"
+  },
+  "market": "US Indices",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "SP:SPX",
+    "yahoo": "^GSPC",
+    "google": ".INX:INDEXSP",
+    "stooq": "^spx"
+  },
+  "tags": [
+    "us",
+    "large-cap",
+    "index"
+  ],
+  "note": "美国大盘核心指数",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/us-spx-500"
+      }
+    ]
+  }
+}

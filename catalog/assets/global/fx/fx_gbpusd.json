@@ -1,0 +1,49 @@
+{
+  "id": "fx_gbpusd",
+  "name": {
+    "zh": "英镑/美元",
+    "en": "GBP/USD"
+  },
+  "market": "Foreign Exchange",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "FX:GBPUSD",
+    "yahoo": "GBPUSD=X",
+    "google": "GBPUSD:CURRENCY",
+    "frankfurter": "GBP/USD",
+    "stooq": "gbpusd"
+  },
+  "tags": [
+    "fx",
+    "gbp",
+    "usd"
+  ],
+  "note": "英镑兑美元",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/currencies/gbp-usd"
+      }
+    ],
+    "crawl": [
+      {
+        "provider": "frankfurter",
+        "type": "latest_fx_json",
+        "url": "https://api.frankfurter.dev/v2/rates?base=GBP&quotes=USD",
+        "format": "json",
+        "base": "GBP",
+        "quote": "USD"
+      },
+      {
+        "provider": "frankfurter",
+        "type": "fx_timeseries_json",
+        "url": "https://api.frankfurter.dev/v2/rates?from=2025-01-01&base=GBP&quotes=USD",
+        "format": "json",
+        "base": "GBP",
+        "quote": "USD"
+      }
+    ]
+  }
+}

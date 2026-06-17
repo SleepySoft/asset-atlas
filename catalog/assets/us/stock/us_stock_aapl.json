@@ -1,0 +1,30 @@
+{
+  "id": "us_stock_aapl",
+  "name": {
+    "zh": "苹果",
+    "en": "Apple Inc."
+  },
+  "market": "NASDAQ",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "NASDAQ:AAPL",
+    "yahoo": "AAPL",
+    "google": "AAPL:NASDAQ",
+    "stooq": "aapl.us"
+  },
+  "tags": [
+    "us",
+    "mega-cap",
+    "tech"
+  ],
+  "note": "美股大型科技股",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/equities/apple-computer-inc"
+      }
+    ]
+  }
+}

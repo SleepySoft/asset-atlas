@@ -1,0 +1,29 @@
+{
+  "id": "cn_index_chinext",
+  "name": {
+    "zh": "创业板指",
+    "en": "ChiNext Index"
+  },
+  "market": "Shenzhen Stock Exchange",
+  "currency": "CNY",
+  "symbols": {
+    "tradingview": "SZSE:399006",
+    "yahoo": "399006.SZ",
+    "google": "399006:SHE"
+  },
+  "tags": [
+    "china",
+    "growth",
+    "index"
+  ],
+  "note": "A股成长风格代表",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/indices/chinext-price"
+      }
+    ]
+  }
+}

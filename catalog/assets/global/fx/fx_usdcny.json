@@ -1,0 +1,48 @@
+{
+  "id": "fx_usdcny",
+  "name": {
+    "zh": "美元/人民币",
+    "en": "USD/CNY"
+  },
+  "market": "Foreign Exchange",
+  "currency": "CNY",
+  "symbols": {
+    "tradingview": "FX_IDC:USDCNY",
+    "yahoo": "CNY=X",
+    "google": "USDCNY:CURRENCY",
+    "frankfurter": "USD/CNY"
+  },
+  "tags": [
+    "fx",
+    "cny",
+    "china"
+  ],
+  "note": "在岸人民币参考汇率；Frankfurter 为央行参考汇率口径",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/currencies/usd-cny"
+      }
+    ],
+    "crawl": [
+      {
+        "provider": "frankfurter",
+        "type": "latest_fx_json",
+        "url": "https://api.frankfurter.dev/v2/rates?base=USD&quotes=CNY",
+        "format": "json",
+        "base": "USD",
+        "quote": "CNY"
+      },
+      {
+        "provider": "frankfurter",
+        "type": "fx_timeseries_json",
+        "url": "https://api.frankfurter.dev/v2/rates?from=2025-01-01&base=USD&quotes=CNY",
+        "format": "json",
+        "base": "USD",
+        "quote": "CNY"
+      }
+    ]
+  }
+}

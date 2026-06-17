@@ -1,0 +1,29 @@
+{
+  "id": "commodity_silver",
+  "name": {
+    "zh": "白银",
+    "en": "Silver"
+  },
+  "market": "Commodities",
+  "currency": "USD",
+  "symbols": {
+    "tradingview": "TVC:SILVER",
+    "yahoo": "SI=F",
+    "google": "",
+    "stooq": "si.f"
+  },
+  "tags": [
+    "commodity",
+    "precious-metal"
+  ],
+  "note": "白银现货/期货参考",
+  "links": {
+    "jump": [
+      {
+        "provider": "investing",
+        "kind": "quote_or_chart",
+        "url": "https://www.investing.com/commodities/silver"
+      }
+    ]
+  }
+}

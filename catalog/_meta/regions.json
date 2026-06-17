@@ -1,0 +1,42 @@
+{
+  "cn": {
+    "name": "Asia/China",
+    "name_zh": "中国",
+    "currency_default": "CNY"
+  },
+  "hk": {
+    "name": "Asia/Hong Kong",
+    "name_zh": "香港",
+    "currency_default": "HKD"
+  },
+  "us": {
+    "name": "North America/United States",
+    "name_zh": "美国",
+    "currency_default": "USD"
+  },
+  "tw": {
+    "name": "Asia/Taiwan",
+    "name_zh": "台湾",
+    "currency_default": "TWD"
+  },
+  "jp": {
+    "name": "Asia/Japan",
+    "name_zh": "日本",
+    "currency_default": "JPY"
+  },
+  "kr": {
+    "name": "Asia/Korea",
+    "name_zh": "韩国",
+    "currency_default": "KRW"
+  },
+  "uk": {
+    "name": "Europe/United Kingdom",
+    "name_zh": "英国",
+    "currency_default": "GBP"
+  },
+  "global": {
+    "name": "Global",
+    "name_zh": "全球",
+    "currency_default": "USD"
+  }
+}
