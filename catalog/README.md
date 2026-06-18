@@ -216,7 +216,11 @@ python catalog/add_asset.py add \
 - 创建成功后自动调用 `build.py` 重新生成完整 catalog（可用 `--no-build` 跳过）。
 - 先用 `--dry-run` 预览输出，确认无误再去掉该参数。
 
-> Dashboard 也提供了「+ 添加标的」按钮：选择交易所、输入代码后，系统实时自动推导 symbols；在「特殊覆盖」区域可手动添加自定义 provider symbol。
+> Dashboard 也提供了「+ 添加标的」按钮：
+> - 选择地区、分类、交易所，输入代码；
+> - 系统自动建议资产 ID、填充市场名称和货币、推导 Symbols；
+> - 所有自动字段均可手动修改；
+> - 在「特殊 symbol 覆盖」区域可手动添加自定义 provider symbol。
 
 ### 3. 校验
 

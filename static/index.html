@@ -51,6 +51,25 @@
           <p class="empty-tip">点击左侧资产查看详情与预览</p>
         </div>
       </aside>
+
+  <!-- Delete confirmation modal -->
+  <div class="modal modal-small" id="deleteModal" aria-hidden="true">
+    <div class="modal-overlay" id="deleteModalOverlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>确认删除</h2>
+        <button class="modal-close" id="deleteModalClose" aria-label="关闭">×</button>
+      </div>
+      <div class="delete-modal-body">
+        <p>确定要删除 <strong id="deleteAssetName"></strong> 吗？</p>
+        <p class="delete-modal-warning">此操作会删除对应的 JSON 文件并重建 catalog，无法撤销。</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn" id="deleteCancel">取消</button>
+        <button type="button" class="btn btn-danger" id="deleteConfirm">删除</button>
+      </div>
+    </div>
+  </div>
     </div>
   </div>
 
@@ -65,38 +84,26 @@
         <button class="modal-close" id="addAssetModalClose" aria-label="关闭">×</button>
       </div>
       <form class="add-asset-form" id="addAssetForm" autocomplete="off">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="addRegion">地区</label>
-            <select id="addRegion" name="region" required></select>
-          </div>
-          <div class="form-group">
-            <label for="addGroup">分类</label>
-            <select id="addGroup" name="group" required></select>
-          </div>
-          <div class="form-group form-group-full">
-            <label for="addId">资产 ID</label>
-            <input type="text" id="addId" name="id" placeholder="cn_stock_demo" required>
-          </div>
-          <div class="form-group">
-            <label for="addNameZh">中文名称</label>
-            <input type="text" id="addNameZh" name="name_zh" placeholder="示例股份" required>
-          </div>
-          <div class="form-group">
-            <label for="addNameEn">英文名称</label>
-            <input type="text" id="addNameEn" name="name_en" placeholder="Demo Co." required>
-          </div>
-          <div class="form-group">
-            <label for="addMarket">市场 / 交易所</label>
-            <input type="text" id="addMarket" name="market" placeholder="Shanghai Stock Exchange" required>
-          </div>
-          <div class="form-group">
-            <label for="addCurrency">货币</label>
-            <input type="text" id="addCurrency" name="currency" placeholder="CNY" required>
+        <input type="hidden" id="addOldId" name="old_id" value="">
+
+        <!-- 基础信息 -->
+        <div class="form-section form-section-compact">
+          <div class="form-section-title">基础信息</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="addRegion">地区</label>
+              <select id="addRegion" name="region" required></select>
+            </div>
+            <div class="form-group">
+              <label for="addGroup">分类</label>
+              <select id="addGroup" name="group" required></select>
+            </div>
           </div>
         </div>
 
-        <div class="form-section">
+        <!-- 代码信息 -->
+        <div class="form-section form-section-compact">
+          <div class="form-section-title">代码信息</div>
           <div class="form-grid">
             <div class="form-group">
               <label for="addExchange">交易所</label>
@@ -115,34 +122,65 @@
             </div>
             <div class="form-group">
               <label for="addCode">代码</label>
-              <input type="text" id="addCode" name="code" placeholder="000001 / AAPL / 00700" required>
+              <input type="text" id="addCode" name="code" placeholder="600519 / AAPL / 00700" required>
             </div>
           </div>
+        </div>
 
-          <div class="derived-symbols" id="derivedSymbols">
-            <div class="derived-symbols-title">自动推导 Symbols</div>
-            <div class="derived-symbols-list" id="derivedSymbolsList">
-              <p class="empty-tip">选择交易所并输入代码后自动推导</p>
+        <!-- 补充信息 -->
+        <div class="form-section form-section-compact">
+          <div class="form-section-title">补充信息</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="addNameZh">中文名称 <span class="required">*</span></label>
+              <input type="text" id="addNameZh" name="name_zh" placeholder="贵州茅台" required>
+            </div>
+            <div class="form-group">
+              <label for="addNameEn">英文名称</label>
+              <input type="text" id="addNameEn" name="name_en" placeholder="Kweichow Moutai">
+            </div>
+            <div class="form-group">
+              <label for="addTags">标签（逗号分隔）</label>
+              <input type="text" id="addTags" name="tags" placeholder="china, consumer, a-share">
+            </div>
+            <div class="form-group form-group-full">
+              <label for="addNote">备注</label>
+              <textarea id="addNote" name="note" rows="2" placeholder="可选备注"></textarea>
             </div>
           </div>
 
           <div class="override-symbols" id="overrideSymbols">
             <div class="form-section-header">
-              <label>特殊覆盖</label>
+              <label>特殊 symbol 覆盖</label>
               <button type="button" class="btn btn-small" id="addOverrideRow">+ 添加覆盖</button>
             </div>
             <div class="symbol-rows" id="overrideRows"></div>
           </div>
         </div>
 
-        <div class="form-grid" style="margin-top: 16px;">
-          <div class="form-group">
-            <label for="addTags">标签（逗号分隔）</label>
-            <input type="text" id="addTags" name="tags" placeholder="china, tech, a-share">
+        <!-- 自动推导 -->
+        <div class="form-section form-section-auto">
+          <div class="form-section-title">自动推导 <span class="form-section-hint">不满意可手动修改</span></div>
+          <div class="form-grid">
+            <div class="form-group form-group-full">
+              <label for="addId">资产 ID</label>
+              <input type="text" id="addId" name="id" placeholder="cn_stock_600519" required>
+            </div>
+            <div class="form-group">
+              <label for="addMarket">市场</label>
+              <input type="text" id="addMarket" name="market" placeholder="Shanghai Stock Exchange" required>
+            </div>
+            <div class="form-group">
+              <label for="addCurrency">货币</label>
+              <input type="text" id="addCurrency" name="currency" placeholder="CNY" required>
+            </div>
           </div>
-          <div class="form-group form-group-full">
-            <label for="addNote">备注</label>
-            <textarea id="addNote" name="note" rows="2" placeholder="可选备注"></textarea>
+
+          <div class="derived-symbols" id="derivedSymbols">
+            <div class="derived-symbols-title">Symbols</div>
+            <div class="derived-symbols-list" id="derivedSymbolsList">
+              <p class="empty-tip">选择交易所并输入代码后自动推导</p>
+            </div>
           </div>
         </div>
 

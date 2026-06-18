@@ -233,6 +233,28 @@ class Handler(BaseHTTPRequestHandler):
         except Exception as e:
             self.j({"error": str(e)}, 400)
 
+    def do_PUT(self) -> None:
+        p = urllib.parse.urlparse(self.path).path
+        try:
+            if p.startswith("/api/assets/"):
+                old_id = p[len("/api/assets/"):]
+                self.j(self.handle_update_asset(old_id, self.read_json()))
+            else:
+                self.j({"error": "not found"}, 404)
+        except Exception as e:
+            self.j({"error": str(e)}, 400)
+
+    def do_DELETE(self) -> None:
+        p = urllib.parse.urlparse(self.path).path
+        try:
+            if p.startswith("/api/assets/"):
+                asset_id = p[len("/api/assets/"):]
+                self.j(self.handle_delete_asset(asset_id))
+            else:
+                self.j({"error": "not found"}, 404)
+        except Exception as e:
+            self.j({"error": str(e)}, 400)
+
     def handle_create_asset(self, payload: dict) -> dict:
         region_code = payload.get("region", "").strip()
         market_group = payload.get("group", "").strip()
@@ -249,10 +271,25 @@ class Handler(BaseHTTPRequestHandler):
         region_code = (query.get("region") or [""])[0].strip()
         market_group = (query.get("group") or [""])[0].strip()
         if not exchange or not code:
-            return {"symbols": {}}
+            return {"symbols": {}, "variants": {}, "exchange": exchange, "code": code}
         providers, _, regions, groups = ADD_ASSET.load_meta()
-        symbols = ADD_ASSET.derive_symbols(exchange, code, region_code, market_group, regions, groups)
-        return {"symbols": symbols, "exchange": exchange, "code": code}
+        result = ADD_ASSET.derive_symbols(exchange, code, region_code, market_group, regions, groups)
+        return {**result, "exchange": exchange, "code": code}
+
+    def handle_update_asset(self, old_id: str, payload: dict) -> dict:
+        region_code = payload.get("region", "").strip()
+        market_group = payload.get("group", "").strip()
+        asset = ADD_ASSET.prepare_asset(payload)
+        result = ADD_ASSET.update_asset(asset, region_code, market_group, old_id)
+        if result["ok"]:
+            self.store.reload()
+        return result
+
+    def handle_delete_asset(self, asset_id: str) -> dict:
+        result = ADD_ASSET.delete_asset(asset_id)
+        if result["ok"]:
+            self.store.reload()
+        return result
 
 
 def main() -> int:

@@ -210,7 +210,7 @@ python app.py
 
 ## 8. 已知限制
 
-- Dashboard 目前只读，没有提供编辑小 JSON 的 UI；
+- Dashboard 已支持添加、编辑、删除资产，编辑时会保留显式 `links`（如 investing.com 等无法模板生成的链接）；
 - Widget 预览仅支持 TradingView 嵌入 widget；
 - 部分 provider（如 investing.com）URL 无统一规则，需逐个维护。
 

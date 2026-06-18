@@ -16,6 +16,8 @@
   let filteredAssets = [];
   let selectedAssetId = null;
   let meta = null;
+  let editingAsset = null;
+  let deletingAsset = null;
 
   const filters = {
     regions: new Set(),
@@ -62,6 +64,14 @@
     addAssetErrors: document.getElementById('addAssetErrors'),
     addAssetCancel: document.getElementById('addAssetCancel'),
     addAssetSubmit: document.getElementById('addAssetSubmit'),
+    addOldId: document.getElementById('addOldId'),
+    addModalTitle: document.querySelector('#addAssetModal .modal-header h2'),
+    deleteModal: document.getElementById('deleteModal'),
+    deleteModalOverlay: document.getElementById('deleteModalOverlay'),
+    deleteModalClose: document.getElementById('deleteModalClose'),
+    deleteCancel: document.getElementById('deleteCancel'),
+    deleteConfirm: document.getElementById('deleteConfirm'),
+    deleteAssetName: document.getElementById('deleteAssetName'),
     toast: document.getElementById('toast'),
   };
 
@@ -164,29 +174,105 @@
     `;
   }
 
-  // Add asset modal
-  function openAddAssetModal() {
-    resetAddAssetForm();
+  // Add/Edit asset modal
+  function openAddAssetModal(asset) {
+    editingAsset = asset || null;
+    resetAddAssetForm(asset);
     els.addAssetModal.setAttribute('aria-hidden', 'false');
     els.addAssetModal.classList.add('open');
-    els.addId.focus();
+    if (asset) {
+      els.addNameZh.focus();
+    } else {
+      els.addExchange.focus();
+    }
   }
 
   function closeAddAssetModal() {
     els.addAssetModal.setAttribute('aria-hidden', 'true');
     els.addAssetModal.classList.remove('open');
     els.addAssetErrors.innerHTML = '';
+    editingAsset = null;
   }
 
-  function resetAddAssetForm() {
+  function resetAddAssetForm(asset) {
     els.addAssetForm.reset();
     renderAddAssetOptions();
-    els.addExchange.value = 'SSE';
-    renderDerivedSymbols({});
+    lastDerivedResult = { symbols: {}, variants: {} };
+    renderDerivedSymbols();
     renderOverrideRows([]);
     els.addAssetErrors.innerHTML = '';
     els.addAssetSubmit.disabled = false;
     els.addAssetSubmit.textContent = '保存';
+
+    if (asset) {
+      // Edit mode
+      els.addModalTitle.textContent = '编辑标的';
+      els.addOldId.value = asset.id;
+      els.addRegion.value = asset._region_code || inferRegionCode(asset._region);
+      els.addGroup.value = asset._group;
+      const { exchange, code } = inferExchangeCode(asset);
+      els.addExchange.value = exchange;
+      els.addCode.value = code;
+      els.addId.value = asset.id;
+      els.addId.dataset.auto = 'false';
+      els.addMarket.value = asset.market || '';
+      els.addMarket.dataset.auto = 'false';
+      els.addCurrency.value = asset.currency || '';
+      els.addNameZh.value = (asset.name && asset.name.zh) || '';
+      els.addNameEn.value = (asset.name && asset.name.en) || '';
+      els.addTags.value = (asset.tags || []).join(', ');
+      els.addNote.value = asset.note || '';
+
+      updateAutoDerivedFields(false).then(() => {
+        const expected = lastDerivedResult.symbols || {};
+        const allSymbols = asset.symbols || {};
+        const derivedSymbols = {};
+        const overrideSymbols = [];
+        Object.entries(allSymbols).forEach(([key, value]) => {
+          if (expected[key] === value) {
+            derivedSymbols[key] = value;
+          } else {
+            overrideSymbols.push({ key, value });
+          }
+        });
+        lastDerivedResult.symbols = derivedSymbols;
+        renderDerivedSymbols();
+        renderOverrideRows(overrideSymbols.length ? overrideSymbols : []);
+      });
+    } else {
+      // Add mode
+      els.addModalTitle.textContent = '添加标的';
+      els.addOldId.value = '';
+      els.addExchange.value = '';
+      els.addCode.value = '';
+      els.addId.value = '';
+      els.addId.dataset.auto = 'true';
+      els.addMarket.value = '';
+      els.addMarket.dataset.auto = 'true';
+      updateCurrencyFromRegion();
+    }
+  }
+
+  function inferRegionCode(regionName) {
+    if (!meta) return '';
+    for (const [code, info] of Object.entries(meta.regions || {})) {
+      if (info.name === regionName || info.name_zh === regionName) return code;
+    }
+    return '';
+  }
+
+  function inferExchangeCode(asset) {
+    const syms = asset.symbols || {};
+    const tv = syms.tradingview || '';
+    if (tv && tv.includes(':')) {
+      const [exchange, code] = tv.split(':');
+      return { exchange, code };
+    }
+    const yahoo = syms.yahoo || '';
+    if (yahoo.endsWith('.SS')) return { exchange: 'SSE', code: yahoo.slice(0, -3) };
+    if (yahoo.endsWith('.SZ')) return { exchange: 'SZSE', code: yahoo.slice(0, -3) };
+    if (yahoo.endsWith('.HK')) return { exchange: 'HKEX', code: yahoo.slice(0, -3) };
+    return { exchange: '', code: '' };
   }
 
   function renderAddAssetOptions() {
@@ -202,8 +288,6 @@
     groupSelect.innerHTML = Object.entries(meta.groups || {})
       .map(([code, info]) => `<option value="${escapeHtml(code)}">${escapeHtml(info.label_zh || code)}</option>`)
       .join('');
-
-    updateCurrencyFromRegion();
   }
 
   function updateCurrencyFromRegion() {
@@ -215,6 +299,55 @@
     }
   }
 
+  const EXCHANGE_MARKET_MAP = {
+    SSE: 'Shanghai Stock Exchange',
+    SZSE: 'Shenzhen Stock Exchange',
+    HKEX: 'Hong Kong Stock Exchange',
+    NASDAQ: 'NASDAQ',
+    NYSE: 'New York Stock Exchange',
+    AMEX: 'NYSE American',
+    TSE: 'Tokyo Stock Exchange',
+    TWSE: 'Taiwan Stock Exchange',
+    LSE: 'London Stock Exchange',
+  };
+
+  function exchangeToMarket(exchange) {
+    return EXCHANGE_MARKET_MAP[exchange] || exchange;
+  }
+
+  function generateSuggestedId() {
+    const region = els.addRegion.value.trim();
+    const group = els.addGroup.value.trim();
+    const code = els.addCode.value.trim();
+    if (!region || !group || !code) return '';
+    const normalizedCode = code.replace(/[^a-zA-Z0-9]+/g, '_');
+    return `${region}_${group}_${normalizedCode}`;
+  }
+
+  function updateAutoDerivedFields(runDerive = true) {
+    const exchange = els.addExchange.value.trim();
+    const code = els.addCode.value.trim();
+
+    // 只有当 ID/市场还是空或看起来是自动生成的，才更新；用户手动改过则不覆盖
+    const suggestedId = generateSuggestedId();
+    if (suggestedId && (!els.addId.value.trim() || els.addId.dataset.auto === 'true')) {
+      els.addId.value = suggestedId;
+      els.addId.dataset.auto = 'true';
+    }
+
+    if (exchange && (!els.addMarket.value.trim() || els.addMarket.dataset.auto === 'true')) {
+      els.addMarket.value = exchangeToMarket(exchange);
+      els.addMarket.dataset.auto = 'true';
+    }
+
+    if (runDerive) {
+      return deriveSymbols();
+    }
+    return Promise.resolve();
+  }
+
+  let lastDerivedResult = { symbols: {}, variants: {} };
+
   async function deriveSymbols() {
     const exchange = els.addExchange.value.trim();
     const code = els.addCode.value.trim();
@@ -222,33 +355,66 @@
     const group = els.addGroup.value.trim();
 
     if (!exchange || !code || !region || !group) {
-      renderDerivedSymbols({});
+      lastDerivedResult = { symbols: {}, variants: {} };
+      renderDerivedSymbols();
       return;
     }
 
     try {
       const result = await fetchJSON(`/api/derive-symbols?exchange=${encodeURIComponent(exchange)}&code=${encodeURIComponent(code)}&region=${encodeURIComponent(region)}&group=${encodeURIComponent(group)}`);
-      renderDerivedSymbols(result.symbols || {});
+      lastDerivedResult = {
+        symbols: result.symbols || {},
+        variants: result.variants || {},
+      };
+      renderDerivedSymbols();
     } catch (err) {
       console.error('derive symbols failed', err);
-      renderDerivedSymbols({});
+      lastDerivedResult = { symbols: {}, variants: {} };
+      renderDerivedSymbols();
     }
   }
 
-  function renderDerivedSymbols(symbols) {
-    const keys = Object.keys(symbols);
-    if (keys.length === 0) {
+  function renderDerivedSymbols() {
+    const symbols = lastDerivedResult.symbols || {};
+    const variants = lastDerivedResult.variants || {};
+    const symbolKeys = Object.keys(symbols);
+    const variantKeys = Object.keys(variants);
+
+    if (symbolKeys.length === 0) {
       els.derivedSymbolsList.innerHTML = '<p class="empty-tip">选择交易所并输入代码后自动推导</p>';
       return;
     }
-    els.derivedSymbolsList.innerHTML = keys
+
+    const symbolHtml = symbolKeys
       .map((key) => `
-        <div class="derived-symbol-item">
+        <div class="derived-symbol-item derived-symbol-main">
           <span class="derived-symbol-key">${escapeHtml(key)}</span>
           <span class="derived-symbol-value">${escapeHtml(symbols[key])}</span>
         </div>
       `)
       .join('');
+
+    const variantHtml = variantKeys.length
+      ? `
+        <div class="derived-variants">
+          <div class="derived-variants-title">模板变体（自动用于各 provider）</div>
+          <div class="derived-variants-list">
+            ${variantKeys
+              .map(
+                (key) => `
+              <div class="derived-variant-item">
+                <span class="derived-variant-name">${escapeHtml(key)}</span>
+                <span class="derived-variant-value">${escapeHtml(variants[key])}</span>
+              </div>
+            `
+              )
+              .join('')}
+          </div>
+        </div>
+      `
+      : '';
+
+    els.derivedSymbolsList.innerHTML = symbolHtml + variantHtml;
   }
 
   function getOverrideKeyOptions(selectedKey) {
@@ -258,7 +424,7 @@
       if (cfg.symbol_key) knownKeys.add(cfg.symbol_key);
     });
     // 排除已由自动推导覆盖的 key
-    const derived = getDerivedSymbolsFromDOM();
+    const derived = lastDerivedResult.symbols || {};
     const keys = Array.from(knownKeys).filter((k) => !(k in derived)).sort();
     return keys
       .map((k) => `<option value="${escapeHtml(k)}" ${k === selectedKey ? 'selected' : ''}>${escapeHtml(k)}</option>`)
@@ -266,13 +432,7 @@
   }
 
   function getDerivedSymbolsFromDOM() {
-    const symbols = {};
-    els.derivedSymbolsList.querySelectorAll('.derived-symbol-item').forEach((item) => {
-      const key = item.querySelector('.derived-symbol-key')?.textContent.trim();
-      const value = item.querySelector('.derived-symbol-value')?.textContent.trim();
-      if (key && value) symbols[key] = value;
-    });
-    return symbols;
+    return { ...lastDerivedResult.symbols };
   }
 
   function renderOverrideRows(rows) {
@@ -325,7 +485,7 @@
     const tagsStr = els.addTags.value.trim();
     const tags = tagsStr ? tagsStr.split(',').map((t) => t.trim()).filter(Boolean) : [];
 
-    return {
+    const payload = {
       region: els.addRegion.value.trim(),
       group: els.addGroup.value.trim(),
       id: els.addId.value.trim(),
@@ -339,6 +499,13 @@
       tags,
       note: els.addNote.value.trim(),
     };
+
+    // 编辑时保留显式 links（如 investing.com 等无法模板生成的链接）
+    if (editingAsset && editingAsset.links) {
+      payload.links = editingAsset.links;
+    }
+
+    return payload;
   }
 
   function showFormErrors(errors) {
@@ -359,6 +526,47 @@
     }, 2500);
   }
 
+  // Delete modal
+  function openDeleteModal(asset) {
+    deletingAsset = asset;
+    els.deleteAssetName.textContent = nameOf(asset);
+    els.deleteModal.setAttribute('aria-hidden', 'false');
+    els.deleteModal.classList.add('open');
+  }
+
+  function closeDeleteModal() {
+    els.deleteModal.setAttribute('aria-hidden', 'true');
+    els.deleteModal.classList.remove('open');
+    deletingAsset = null;
+  }
+
+  async function confirmDelete() {
+    if (!deletingAsset) return;
+    els.deleteConfirm.disabled = true;
+    els.deleteConfirm.textContent = '删除中...';
+
+    try {
+      const result = await fetchJSON(`/api/assets/${encodeURIComponent(deletingAsset.id)}`, {
+        method: 'DELETE',
+      });
+
+      if (!result.ok) {
+        alert('删除失败：' + (result.errors || []).join('; '));
+        return;
+      }
+
+      closeDeleteModal();
+      closeDetailPanel();
+      showToast(`已删除：${nameOf(deletingAsset)}`);
+      await loadData();
+    } catch (err) {
+      alert('删除失败：' + err.message);
+    } finally {
+      els.deleteConfirm.disabled = false;
+      els.deleteConfirm.textContent = '删除';
+    }
+  }
+
   async function submitAddAsset(e) {
     e.preventDefault();
     const payload = gatherFormData();
@@ -366,9 +574,13 @@
     els.addAssetSubmit.disabled = true;
     els.addAssetSubmit.textContent = '保存中...';
 
+    const isEdit = Boolean(els.addOldId.value);
+    const url = isEdit ? `/api/assets/${encodeURIComponent(els.addOldId.value)}` : '/api/assets';
+    const method = isEdit ? 'PUT' : 'POST';
+
     try {
-      const result = await fetchJSON('/api/assets', {
-        method: 'POST',
+      const result = await fetchJSON(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
@@ -379,11 +591,10 @@
       }
 
       closeAddAssetModal();
-      showToast(`已添加：${payload.name.zh || payload.id}`);
+      showToast(isEdit ? `已更新：${payload.name.zh || payload.id}` : `已添加：${payload.name.zh || payload.id}`);
       await loadData();
-      // scroll to / highlight the new asset
-      const newAsset = allAssets.find((a) => a.id === payload.id);
-      if (newAsset) selectAsset(newAsset);
+      const updatedAsset = allAssets.find((a) => a.id === payload.id);
+      if (updatedAsset) selectAsset(updatedAsset);
     } catch (err) {
       showFormErrors([err.message]);
     } finally {
@@ -638,6 +849,10 @@
       .join('');
 
     els.detailContent.innerHTML = `
+      <div class="detail-actions">
+        <button class="btn btn-small" id="editAssetBtn">编辑</button>
+        <button class="btn btn-small btn-danger" id="deleteAssetBtn">删除</button>
+      </div>
       <h2 class="detail-title">${escapeHtml(nameOf(asset))}</h2>
       <div class="detail-subtitle">
         ${escapeHtml(englishNameOf(asset))} · ${escapeHtml(asset.id)} · ${escapeHtml(
@@ -694,6 +909,12 @@
         });
       });
     }
+
+    // Wire edit/delete buttons
+    const editBtn = document.getElementById('editAssetBtn');
+    const deleteBtn = document.getElementById('deleteAssetBtn');
+    if (editBtn) editBtn.addEventListener('click', () => openAddAssetModal(asset));
+    if (deleteBtn) deleteBtn.addEventListener('click', () => openDeleteModal(asset));
   }
 
   function renderWidgetPreview(name, widget) {
@@ -787,16 +1008,28 @@
   els.addOverrideRow.addEventListener('click', addOverrideRow);
   els.addRegion.addEventListener('change', () => {
     updateCurrencyFromRegion();
-    deriveSymbols();
+    updateAutoDerivedFields();
   });
-  els.addGroup.addEventListener('change', deriveSymbols);
-  els.addExchange.addEventListener('change', deriveSymbols);
-  els.addCode.addEventListener('input', debounce(deriveSymbols, 300));
+  els.addGroup.addEventListener('change', updateAutoDerivedFields);
+  els.addExchange.addEventListener('change', updateAutoDerivedFields);
+  els.addCode.addEventListener('input', debounce(updateAutoDerivedFields, 300));
+  els.addId.addEventListener('input', () => {
+    els.addId.dataset.auto = 'false';
+  });
+  els.addMarket.addEventListener('input', () => {
+    els.addMarket.dataset.auto = 'false';
+  });
   els.addAssetForm.addEventListener('submit', submitAddAsset);
 
+  els.deleteModalClose.addEventListener('click', closeDeleteModal);
+  els.deleteModalOverlay.addEventListener('click', closeDeleteModal);
+  els.deleteCancel.addEventListener('click', closeDeleteModal);
+  els.deleteConfirm.addEventListener('click', confirmDelete);
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && els.addAssetModal.classList.contains('open')) {
-      closeAddAssetModal();
+    if (e.key === 'Escape') {
+      if (els.addAssetModal.classList.contains('open')) closeAddAssetModal();
+      if (els.deleteModal.classList.contains('open')) closeDeleteModal();
     }
   });
 

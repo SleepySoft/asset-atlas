@@ -360,6 +360,13 @@ body {
   margin: 0 0 4px;
 }
 
+.detail-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
 .detail-subtitle {
   font-size: 13px;
   color: var(--muted);
@@ -751,6 +758,22 @@ body {
   cursor: not-allowed;
 }
 
+.btn-danger {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #f87171;
+  border-color: #f87171;
+}
+
+.btn-danger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* Toast */
 .toast {
   position: fixed;
@@ -845,4 +868,91 @@ body {
 
 .override-symbols {
   margin-top: 16px;
+}
+
+/* Form section redesign */
+.form-section-compact {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.form-section-compact:last-of-type {
+  border-bottom: none;
+}
+
+.form-section-auto {
+  padding: 16px;
+  margin: 12px 0;
+  background: rgba(96, 165, 250, 0.06);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  border-radius: 12px;
+}
+
+.form-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-section-hint {
+  font-size: 11px;
+  font-weight: normal;
+  color: var(--muted);
+}
+
+.required {
+  color: var(--red);
+}
+
+label .required {
+  margin-left: 2px;
+}
+
+/* Derived symbol variants */
+.derived-symbol-main {
+  background: var(--card);
+  border-color: rgba(96, 165, 250, 0.35);
+}
+
+.derived-variants {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+}
+
+.derived-variants-title {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.derived-variants-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.derived-variant-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.derived-variant-name {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.derived-variant-value {
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
