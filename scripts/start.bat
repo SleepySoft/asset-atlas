@@ -1,5 +1,5 @@
 @echo off
-cd /d "%~dp0"
+cd /d "%~dp0\.."
 set PORT=8787
 set CATALOG=catalog/dist/market_sources_catalog.json
 echo Starting http://localhost:%PORT%/

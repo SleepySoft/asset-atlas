@@ -38,7 +38,7 @@ python app.py --catalog market_sources_catalog.json --port 8787
 http://localhost:8787
 ```
 
-Windows 可以双击 `start.bat`（注意 `start.bat` 默认可能仍指向旧 catalog，可按需修改）。
+Windows 可以双击 `scripts/start.bat`；Linux/macOS 可运行 `scripts/start.sh`（注意启动脚本默认仍指向旧 catalog，可按需修改）。
 
 ## 前端功能
 

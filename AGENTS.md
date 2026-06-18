@@ -82,11 +82,13 @@
 │   │   └── global/commodity/fx/crypto/ # 全球市场
 │   ├── build.py                        # 生成完整 catalog
 │   ├── add_asset.py                    # 手动添加/校验单个资产
-│   ├── migrate.py                      # 旧 JSON → 新结构
 │   ├── README.md                       # catalog 维护说明
 │   └── dist/market_sources_catalog.json # 生成产物
 ├── market_sources_catalog.json         # 旧版完整 catalog（保留兼容）
-├── start.bat / start.sh
+├── scripts/                            # 可复用脚本（启动、辅助工具）
+│   ├── start.bat
+│   └── start.sh
+├── temp/                               # 临时脚本/一次性实验文件
 └── README.md
 ```
 
@@ -142,7 +144,7 @@
 ```bash
 # 日常维护
 python catalog/build.py          # 生成 catalog/dist/market_sources_catalog.json
-python app.py                    # 启动 dashboard
+python app.py                    # 启动 dashboard（或运行 scripts/start.sh / scripts/start.bat）
 
 # 添加/校验单个资产（选项 C：手动填写 symbols，自动格式化与校验）
 python catalog/add_asset.py template --region cn --group stock --id cn_stock_demo
