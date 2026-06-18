@@ -37,6 +37,7 @@
         <div class="toolbar">
           <span id="resultCount">加载中...</span>
           <div class="toolbar-actions">
+            <button class="btn btn-small btn-primary" id="addAssetBtn">+ 添加标的</button>
             <button class="btn btn-small" id="exportBtn">导出 JSON</button>
             <button class="btn btn-small" id="reloadBtn">刷新</button>
           </div>
@@ -54,6 +55,109 @@
   </div>
 
   <div class="overlay" id="overlay"></div>
+
+  <!-- Add Asset Modal -->
+  <div class="modal" id="addAssetModal" aria-hidden="true">
+    <div class="modal-overlay" id="addAssetModalOverlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>添加标的</h2>
+        <button class="modal-close" id="addAssetModalClose" aria-label="关闭">×</button>
+      </div>
+      <form class="add-asset-form" id="addAssetForm" autocomplete="off">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="addRegion">地区</label>
+            <select id="addRegion" name="region" required></select>
+          </div>
+          <div class="form-group">
+            <label for="addGroup">分类</label>
+            <select id="addGroup" name="group" required></select>
+          </div>
+          <div class="form-group form-group-full">
+            <label for="addId">资产 ID</label>
+            <input type="text" id="addId" name="id" placeholder="cn_stock_demo" required>
+          </div>
+          <div class="form-group">
+            <label for="addNameZh">中文名称</label>
+            <input type="text" id="addNameZh" name="name_zh" placeholder="示例股份" required>
+          </div>
+          <div class="form-group">
+            <label for="addNameEn">英文名称</label>
+            <input type="text" id="addNameEn" name="name_en" placeholder="Demo Co." required>
+          </div>
+          <div class="form-group">
+            <label for="addMarket">市场 / 交易所</label>
+            <input type="text" id="addMarket" name="market" placeholder="Shanghai Stock Exchange" required>
+          </div>
+          <div class="form-group">
+            <label for="addCurrency">货币</label>
+            <input type="text" id="addCurrency" name="currency" placeholder="CNY" required>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="addExchange">交易所</label>
+              <select id="addExchange" name="exchange" required>
+                <option value="">请选择</option>
+                <option value="SSE">上交所 SSE</option>
+                <option value="SZSE">深交所 SZSE</option>
+                <option value="HKEX">港交所 HKEX</option>
+                <option value="NASDAQ">纳斯达克 NASDAQ</option>
+                <option value="NYSE">纽交所 NYSE</option>
+                <option value="AMEX">美交所 AMEX</option>
+                <option value="TSE">东证 TSE</option>
+                <option value="TWSE">台湾证交所 TWSE</option>
+                <option value="LSE">伦敦证交所 LSE</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="addCode">代码</label>
+              <input type="text" id="addCode" name="code" placeholder="000001 / AAPL / 00700" required>
+            </div>
+          </div>
+
+          <div class="derived-symbols" id="derivedSymbols">
+            <div class="derived-symbols-title">自动推导 Symbols</div>
+            <div class="derived-symbols-list" id="derivedSymbolsList">
+              <p class="empty-tip">选择交易所并输入代码后自动推导</p>
+            </div>
+          </div>
+
+          <div class="override-symbols" id="overrideSymbols">
+            <div class="form-section-header">
+              <label>特殊覆盖</label>
+              <button type="button" class="btn btn-small" id="addOverrideRow">+ 添加覆盖</button>
+            </div>
+            <div class="symbol-rows" id="overrideRows"></div>
+          </div>
+        </div>
+
+        <div class="form-grid" style="margin-top: 16px;">
+          <div class="form-group">
+            <label for="addTags">标签（逗号分隔）</label>
+            <input type="text" id="addTags" name="tags" placeholder="china, tech, a-share">
+          </div>
+          <div class="form-group form-group-full">
+            <label for="addNote">备注</label>
+            <textarea id="addNote" name="note" rows="2" placeholder="可选备注"></textarea>
+          </div>
+        </div>
+
+        <div class="form-errors" id="addAssetErrors"></div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn" id="addAssetCancel">取消</button>
+          <button type="submit" class="btn btn-primary" id="addAssetSubmit">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
   <script src="/static/js/app.js"></script>
 </body>
 </html>

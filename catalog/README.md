@@ -178,6 +178,56 @@ python catalog/migrate.py
 
 迁移完成后，再运行 `python catalog/build.py` 生成完整 catalog。
 
+## 添加新资产
+
+本目录采用「只收录关注标的」的策展模式，不追求全量。新增资产推荐用 `add_asset.py`：
+
+### 1. 先生成模板
+
+```bash
+python catalog/add_asset.py template --region cn --group stock --id cn_stock_demo
+# 或保存到文件
+python catalog/add_asset.py template --region cn --group stock --id cn_stock_demo --output /tmp/demo.json
+```
+
+模板会预填所有已知的 `symbols` key（空字符串），按需填写即可。
+
+### 2. 添加资产（推荐：交易所 + 代码自动推导）
+
+```bash
+python catalog/add_asset.py add \
+  --region cn \
+  --group stock \
+  --id cn_stock_demo \
+  --name-zh 示例股份 \
+  --name-en "Demo Co." \
+  --market "Shanghai Stock Exchange" \
+  --exchange SSE \
+  --code 600519 \
+  --tags china,tech,a-share \
+  --note "示例说明"
+```
+
+说明：
+- `--exchange` + `--code` 会自动推导 `tradingview`、`yahoo`、`google` 等标准 symbol；对 A股/港股/美股/日股/台股/英股均支持。
+- 如需覆盖或补充某个 provider（如加密货币的 `coinmarketcap`），可继续用 `--symbol provider=code`。
+- `--currency` 默认从 `regions.json` 继承，可显式覆盖。
+- 落盘前会自动校验 region/group 合法性、id 唯一性、必填字段。
+- 创建成功后自动调用 `build.py` 重新生成完整 catalog（可用 `--no-build` 跳过）。
+- 先用 `--dry-run` 预览输出，确认无误再去掉该参数。
+
+> Dashboard 也提供了「+ 添加标的」按钮：选择交易所、输入代码后，系统实时自动推导 symbols；在「特殊覆盖」区域可手动添加自定义 provider symbol。
+
+### 3. 校验
+
+```bash
+# 校验全部资产
+python catalog/add_asset.py validate
+
+# 校验单个资产
+python catalog/add_asset.py validate --file catalog/assets/cn/stock/cn_stock_demo.json
+```
+
 ## 构建
 
 ```bash

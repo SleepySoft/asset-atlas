@@ -81,6 +81,7 @@
 │   │   ├── jp/, kr/, tw/, uk/          # 其他市场
 │   │   └── global/commodity/fx/crypto/ # 全球市场
 │   ├── build.py                        # 生成完整 catalog
+│   ├── add_asset.py                    # 手动添加/校验单个资产
 │   ├── migrate.py                      # 旧 JSON → 新结构
 │   ├── README.md                       # catalog 维护说明
 │   └── dist/market_sources_catalog.json # 生成产物
@@ -143,6 +144,20 @@
 python catalog/build.py          # 生成 catalog/dist/market_sources_catalog.json
 python app.py                    # 启动 dashboard
 
+# 添加/校验单个资产（选项 C：手动填写 symbols，自动格式化与校验）
+python catalog/add_asset.py template --region cn --group stock --id cn_stock_demo
+python catalog/add_asset.py add \
+  --region cn \
+  --group stock \
+  --id cn_stock_demo \
+  --name-zh 示例股份 \
+  --name-en "Demo Co." \
+  --market "Shanghai Stock Exchange" \
+  --exchange SSE \
+  --code 600519 \
+  --tags china,tech,a-share
+python catalog/add_asset.py validate
+
 # 从旧版迁移
 python catalog/migrate.py        # 拆旧 JSON 到 catalog/assets/
 python catalog/build.py
@@ -158,20 +173,24 @@ python app.py
 - `GET /api/catalog` → 完整 catalog（含 region_zh / label_zh）
 - `GET /api/assets` → 拍平后的资产数组
 - `GET /api/stats` → 统计信息
+- `GET /api/meta` → regions / market_groups / providers 元数据
 - `GET /api/export` → 下载 JSON
+- `GET /api/derive-symbols` → 根据交易所+代码推导 symbols
 - `GET /api/reload` → 重新加载
 - `POST /api/catalog` → 保存 catalog
 - `POST /api/validate` → 校验 catalog
+- `POST /api/assets` → 创建单个资产（写小 JSON + build + reload）
 
 ---
 
 ## 6. 前端行为
 
-- 加载 `/api/catalog`，拍平资产；
+- 加载 `/api/catalog` 与 `/api/meta`，拍平资产；
 - 左侧筛选：地区、分类、provider；
 - 搜索：名称、代码、tag、note、market；
 - 主区域按 **分类分组** 显示资产卡片；
 - 右侧详情面板：信息、跳转链接、可抓取链接、TradingView widget 预览；
+- 顶部工具栏提供 **「+ 添加标的」** 弹窗表单，提交后写入小 JSON、重建 catalog、刷新列表；
 - 桌面端三栏，移动端抽屉/全屏详情。
 
 ---

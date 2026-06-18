@@ -26,6 +26,28 @@ from pathlib import Path
 # Default catalog is the generated output from catalog/build.py
 DEFAULT_CATALOG = "catalog/dist/market_sources_catalog.json"
 STATIC_DIR = Path(__file__).resolve().parent / "static"
+CATALOG_DIR = Path(__file__).resolve().parent / "catalog"
+
+
+def load_add_asset_module():
+    """动态加载 catalog/add_asset.py，复用其 create_asset 等函数。"""
+    import importlib.util
+    # 临时把 catalog/ 加入 sys.path，让 add_asset.py 能导入同目录的 build.py
+    catalog_dir = str(CATALOG_DIR)
+    inserted = catalog_dir not in sys.path
+    if inserted:
+        sys.path.insert(0, catalog_dir)
+    try:
+        spec = importlib.util.spec_from_file_location("add_asset", CATALOG_DIR / "add_asset.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
+    finally:
+        if inserted:
+            sys.path.remove(catalog_dir)
+
+
+ADD_ASSET = load_add_asset_module()
 
 
 def assets(cat: dict) -> list[dict]:
@@ -144,6 +166,10 @@ class Handler(BaseHTTPRequestHandler):
         n = int(self.headers.get("Content-Length", "0"))
         return json.loads(self.rfile.read(n).decode("utf-8")) if n else None
 
+    def meta_response(self) -> dict:
+        providers, _, regions, groups = ADD_ASSET.load_meta()
+        return {"providers": providers, "regions": regions, "groups": groups}
+
     def serve_static(self, path: str) -> None:
         if path == "/":
             path = "/index.html"
@@ -172,6 +198,10 @@ class Handler(BaseHTTPRequestHandler):
             self.j({"assets": assets(self.store.catalog)})
         elif p == "/api/stats":
             self.j(self.store.stats())
+        elif p == "/api/meta":
+            self.j(self.meta_response())
+        elif p == "/api/derive-symbols":
+            self.j(self.handle_derive_symbols())
         elif p == "/api/reload":
             try:
                 self.j(self.store.reload())
@@ -196,10 +226,33 @@ class Handler(BaseHTTPRequestHandler):
             elif p == "/api/validate":
                 ok, errs = validate(self.read_json())
                 self.j({"ok": ok, "errors": errs})
+            elif p == "/api/assets":
+                self.j(self.handle_create_asset(self.read_json()))
             else:
                 self.j({"error": "not found"}, 404)
         except Exception as e:
             self.j({"error": str(e)}, 400)
+
+    def handle_create_asset(self, payload: dict) -> dict:
+        region_code = payload.get("region", "").strip()
+        market_group = payload.get("group", "").strip()
+        asset = ADD_ASSET.prepare_asset(payload)
+        result = ADD_ASSET.create_asset(asset, region_code, market_group)
+        if result["ok"]:
+            self.store.reload()
+        return result
+
+    def handle_derive_symbols(self) -> dict:
+        query = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+        exchange = (query.get("exchange") or [""])[0].strip().upper()
+        code = (query.get("code") or [""])[0].strip()
+        region_code = (query.get("region") or [""])[0].strip()
+        market_group = (query.get("group") or [""])[0].strip()
+        if not exchange or not code:
+            return {"symbols": {}}
+        providers, _, regions, groups = ADD_ASSET.load_meta()
+        symbols = ADD_ASSET.derive_symbols(exchange, code, region_code, market_group, regions, groups)
+        return {"symbols": symbols, "exchange": exchange, "code": code}
 
 
 def main() -> int:
